@@ -6,3 +6,7 @@ Custom patterns.yml for sematext-docker-agent.
 
 * Cp. <a href="https://github.com/sematext/logagent-js">sematext/logagent-js</a>.
 * Cp. <a href="https://sematext.com/docs/sematext-docker-agent/configuration/">sematext-docker-agent</a>
+
+## Caveats
+
+* patterns.yml is downloaded via https by sematext-docker-agent => public repo
