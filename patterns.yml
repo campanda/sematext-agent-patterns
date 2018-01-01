@@ -316,6 +316,7 @@ patterns:
         - size:number
         - referer:string
         - user_agent:string
+        - extra:string
       geoIP: client_ip
       dateFormat: DD/MMM/YYYY:HH:mm:ss ZZ
       transform: !!js/function >
@@ -357,7 +358,7 @@ patterns:
       #      p.size = 0
       #    }
       #  } 
-    - regex: !!js/regexp ^(\S+)\s+(-|.+?)\s+(-|.+?)\s+\[(.*)\]\s\"(\S+)\s(\S+)\s(\S+)\s(\d+)\s([\d+|\"-\"|-])
+    - regex: !!js/regexp ^(\S+)\s+(-|.+?)\s+(-|.+?)\s+\[(.*)\]\s\"(\S+)\s(\S+)\s(\S+)\s(\d+)\s([\d+|\"-\"|-])(.*)
       type: access_common
       fields: 
         - client_ip:string
@@ -369,6 +370,7 @@ patterns:
         - http_version:string
         - status_code:number
         - size:number
+        - extra:string
       geoIP: client_ip
       dateFormat: DD/MMM/YYYY:HH:mm:ss ZZ
       #transform: !!js/function >
