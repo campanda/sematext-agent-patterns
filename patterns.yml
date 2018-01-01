@@ -303,7 +303,7 @@ patterns:
             p.size = 0
           }
           if (p.duration) {
-            p.duration = 0.001;
+            p.duration = p.duration/(1.0*1000000)
           }
         }
     - type: nginxd
