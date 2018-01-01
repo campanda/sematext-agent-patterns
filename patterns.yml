@@ -334,7 +334,7 @@ patterns:
           }
         }
     - type: access_log_combined
-      regex: !!js/regexp ^([0-9a-f.:]+)\s(-|\S+)\s(-|\S+)\s\[(.*)\]\s\"(\w+)\s(\S+)\s{0,1}(.*)\" ([0-9|\-]+) ([0-9|\-]+) \"([^\"]+)\" \"([^\"]+)\"
+      regex: !!js/regexp ^([0-9a-f.:]+)\s(-|\S+)\s(-|\S+)\s\[(.*)\]\s\"(\w+)\s(\S+)\s{0,1}(.*)\" ([0-9|\-]+) ([0-9|\-]+) \"([^\"]+)\" \"([^\"]+)\"$
       fields: 
         - client_ip:string
         - remote_id:string
@@ -389,7 +389,7 @@ patterns:
       #      p.size = 0
       #    }
       #  } 
-    - regex: !!js/regexp ^(\S+)\s+(-|.+?)\s+(-|.+?)\s+\[(.*)\]\s\"(\S+)\s(\S+)\s(\S+)\s(\d+)\s([\d+|\"-\"|-])(.*)
+    - regex: !!js/regexp ^(\S+)\s+(-|.+?)\s+(-|.+?)\s+\[(.*)\]\s\"(\S+)\s(\S+)\s(\S+)\s(\d+)\s([\d+|\"-\"|-])$
       type: access_common
       fields: 
         - client_ip:string
@@ -401,7 +401,6 @@ patterns:
         - http_version:string
         - status_code:number
         - size:number
-        - extra:string
       geoIP: client_ip
       dateFormat: DD/MMM/YYYY:HH:mm:ss ZZ
       #transform: !!js/function >
