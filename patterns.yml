@@ -302,6 +302,10 @@ patterns:
           if(p.size === '-') {
             p.size = 0
           }
+          if (p.duration) {
+            var ds = p.duration/(1.0*1000000);
+            p.duration = ds.toFixed(3);
+          }
         }
     - type: nginxd
       regex: !!js/regexp ^([0-9a-f.:]+)\s(-|\S+)\s(-|\S+)\s\[(.*)\]\s\"(\w+)\s(\S+)\s{0,1}(.*)\" ([0-9|\-]+) ([0-9|\-]+) \"([^\"]+)\" \"([^\"]+)\"\s\"([^\"]+)\"\s(\w+)\s(.+)\s([0-9]*\.?[0-9]+)\s([0-9|\-]+)(.*)
