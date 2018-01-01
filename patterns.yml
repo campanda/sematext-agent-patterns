@@ -272,8 +272,8 @@ patterns:
  - #  Web Logs
   sourceName: !!js/regexp /httpd|access_log|apache2|nginx|router|varnish/
   match: 
-    - type: varnishncsa
-      regex: !!js/regexp ^([0-9a-f.:]+)\s(-|\S+)\s(-|\S+)\s\[(.*)\]\s\"(\w+)\s(\S+)\s{0,1}(.*)\" ([0-9|\-]+) ([0-9|\-]+) \"([^\"]+)\" \"([^\"]+)\"\s(\w+)\s(\w+)\s(\w+)(.*)
+    - type: varnishd
+      regex: !!js/regexp ^([0-9a-f.:]+)\s(-|\S+)\s(-|\S+)\s\[(.*)\]\s\"(\w+)\s(\S+)\s{0,1}(.*)\" ([0-9|\-]+) ([0-9|\-]+) \"([^\"]+)\" \"([^\"]+)\"\s(\w+)\s(\w+)\s([0-9]+)\s([0-9]+)(.*)$
       fields:
         - client_ip:string
         - remote_id:string
@@ -289,6 +289,37 @@ patterns:
         - side:string
         - handling:string
         - duration:number
+        - vxid:number
+        - extra:string
+      geoIP: client_ip
+      dateFormat: DD/MMM/YYYY:HH:mm:ss ZZ
+      transform: !!js/function >
+        function transformMessage (p) {
+          p.message = p.method + ' ' + p.path
+          if(p.status_code === '-') {
+            p.status_code = 0
+          }
+          if(p.size === '-') {
+            p.size = 0
+          }
+        }
+    - type: nginxd
+      regex: !!js/regexp ^([0-9a-f.:]+)\s(-|\S+)\s(-|\S+)\s\[(.*)\]\s\"(\w+)\s(\S+)\s{0,1}(.*)\" ([0-9|\-]+) ([0-9|\-]+) \"([^\"]+)\" \"([^\"]+)\"\s\"([^\"]+)\"\s(\w+)\s(.+)(.*)
+      fields:
+        - client_ip:string
+        - remote_id:string
+        - user:string
+        - ts
+        - method:string
+        - path:string
+        - protocol:string
+        - status_code:number
+        - size:number
+        - referer:string
+        - user_agent:string
+        - x_forwarded_for:string
+        - request_id:string
+        - host:string
         - extra:string
       geoIP: client_ip
       dateFormat: DD/MMM/YYYY:HH:mm:ss ZZ
@@ -303,7 +334,7 @@ patterns:
           }
         }
     - type: access_log_combined
-      regex: !!js/regexp ^([0-9a-f.:]+)\s(-|\S+)\s(-|\S+)\s\[(.*)\]\s\"(\w+)\s(\S+)\s{0,1}(.*)\" ([0-9|\-]+) ([0-9|\-]+) \"([^\"]+)\" \"([^\"]+)\"(.*)
+      regex: !!js/regexp ^([0-9a-f.:]+)\s(-|\S+)\s(-|\S+)\s\[(.*)\]\s\"(\w+)\s(\S+)\s{0,1}(.*)\" ([0-9|\-]+) ([0-9|\-]+) \"([^\"]+)\" \"([^\"]+)\"
       fields: 
         - client_ip:string
         - remote_id:string
