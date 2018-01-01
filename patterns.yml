@@ -320,6 +320,8 @@ patterns:
         - x_forwarded_for:string
         - request_id:string
         - host:string
+        - duration:number
+        - bytes_sent:number
         - extra:string
       geoIP: client_ip
       dateFormat: DD/MMM/YYYY:HH:mm:ss ZZ
