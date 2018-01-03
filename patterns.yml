@@ -81,7 +81,7 @@ patterns:
       dateFormat: HH:mm:ss:S
  - # Elasticsearch 
   blockStart: !!js/regexp /^\d{4}-\d{2}-\d{2}[\s|T][\d+|\:]+.\d+|log4j\:\S+\s/
-  sourceName: !!js/regexp /elasticsearch/
+  sourceName: !!js/regexp /^elasticsearch$/
   match:
     - type: elasticsearch_slow_log
       regex: !!js/regexp /^\[(\d{4}-\d{2}-\d{2}[\s|T][\d+|\:]+.\d+)\]\[(.+?)\s*\]\[(\S{0,512})\s*\]\s*\[(.+?)\]\s\[(\S+?)\]\[(\d+)\]\s.+took_millis\[(\d+)\].+types\[(.*?)\].+stats\[(.*?)\].*search_type\[(.*?)\].+total_shards\[(.*?)\].+source\[(.*?)\],$/i
